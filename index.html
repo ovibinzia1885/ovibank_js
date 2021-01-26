@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ovi Bank</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    
+
     <div id="login-area">
         <h1 class="text-center"> WelCOme to Ovi Bank </h1>
         <div class="submit-area">
@@ -17,12 +20,110 @@
             <br>
             <input type="password" class="form-control" name="" id="" placeholder="password">
             <br>
-            <button class="btn btn-success ">submit</button>
+            <button id="login" class="btn btn-success ">submit</button>
             <br>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <div id="transation-area">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="deposit status">
+                    <h5>Deposit</h5>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
+                </div>
+
+            </div>
+            <div class="col-md-4 ">
+                <div class="Withdraw status">
+                    <h5>Withdraw</h5>
+                    <h2>$<span id="currentwithdraw">00</span></h2>
+                </div>
+            </div>
+            <div class="col-md-4 Balance ">
+                <div class="Balance status">
+                    <h5>Balance</h5>
+                    <h2>$<span id="currentbalance">1240</span></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>Deposite</h4>
+                    <input type="text" id="depositammount" class="form-control"
+                        placeholder="$ amount you  wnat to deposit">
+                    <br>
+                    <button class="btn-success" id="adddeposit">Deposite</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="submit-area">
+                    <h4>WithDraw</h4>
+                    <input type="text" class="form-control" id= "withdrawamount" placeholder="$ ammount you want to withdraw">
+                    <br>
+                    <button class="btn-success" id="addwithdraw">WithDraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //login button event handler
+        const loginBtn = document.getElementById("login");
+        loginBtn.addEventListener("click", function () {
+            const loginArea = document.getElementById("login-area");
+            loginArea.style.display = "none";
+            const transationArea = document.getElementById("transation-area")
+            transationArea.style.display = "block";
+
+        })
+        //depostite button even handle 
+        const depositBtn = document.getElementById("adddeposit");
+        
+        depositBtn.addEventListener("click", function () {
+            // const depositammount = document.getElementById("depositammount").value;
+            // const depositnumber = parseFloat(depositammount);
+
+            const depositnumber=getinputnumber("depositammount");
+
+            // const currentDeposit = document.getElementById("currentDeposit").innerText;
+            // const currentDepositnumber = parseFloat(currentDeposit);
+            // const totaldeposit = depositnumber + currentDepositnumber;
+            // document.getElementById("currentDeposit").innerText = totaldeposit;
+            updatespanText("currentDeposit",depositnumber);
+            updatespanText("currentbalance", depositnumber);
+   
+
+            document.getElementById("depositammount").value = "";
+
+        })
+        //withdraw handle event 
+        const withdrawBtn=document.getElementById("addwithdraw");
+        withdrawBtn.addEventListener("click",function(){
+            const withdrawnumber=getinputnumber("withdrawamount");
+            updatespanText("currentwithdraw",withdrawnumber);
+            updatespanText("currentbalance",-1* withdrawnumber);
+            document.getElementById("withdrawamount").value="";
+
+
+        })
+
+        function getinputnumber(id){
+            const withdrawammount=document.getElementById(id).value;
+            const withdrawnumber=parseFloat(withdrawammount);
+            return withdrawnumber;
+        }
+
+
+        function updatespanText(id, depositnumber) {
+            const currentbalance = document.getElementById(id).innerText;
+            const currentbalancenumber = parseFloat(currentbalance);
+            const totalbalance = depositnumber + currentbalancenumber;
+            document.getElementById(id).innerText = totalbalance;
+
+        }
+    </script>
+
 </body>
+
 </html>
